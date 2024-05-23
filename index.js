@@ -5,23 +5,23 @@ const CustomerModel = require('./models/Customer');
 const app = express();
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({origin:'https://swiobackend-1.onrender.com/'}));
 
 mongoose.connect("mongodb://127.0.0.1:27017/MyDb");
 
-app.post('/payment', (req, res) => {
+app.post('https://swiobackend-1.onrender.com/payment', (req, res) => {
   CustomerModel.create(req.body)
     .then(customer => res.json(customer))
     .catch(err => console.log(err));
 });
 
-app.get('/getData', (req, res) => {
+app.get('https://swiobackend-1.onrender.com/getData', (req, res) => {
   CustomerModel.find()
     .then(customers => res.json(customers))
     .catch(err => console.log(err));
 });
 
-app.delete('/delete/:id', async (req, res) => {
+app.delete('https://swiobackend-1.onrender.com/delete/:id', async (req, res) => {
   try {
     await CustomerModel.findByIdAndDelete(req.params.id);
     res.status(200).send('Record deleted');
@@ -30,7 +30,7 @@ app.delete('/delete/:id', async (req, res) => {
   }
 });
 
-app.put('/update/:id', async (req, res) => {
+app.put('https://swiobackend-1.onrender.com//update/:id', async (req, res) => {
   try {
     const { name, amount } = req.body;
     await CustomerModel.findByIdAndUpdate(req.params.id, { name, amount });
