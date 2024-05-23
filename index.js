@@ -12,13 +12,13 @@ mongoose.connect("mongodb://127.0.0.1:27017/MyDb");
 app.post('/payment', (req, res) => {
   CustomerModel.create(req.body)
     .then(customer => res.json(customer))
-    .catch(err => res.status(500).json({ message: err.message }));
+    .catch(err => console.log(err));
 });
 
 app.get('/getData', (req, res) => {
   CustomerModel.find()
     .then(customers => res.json(customers))
-    .catch(err => res.status(500).json({ message: err.message }));
+    .catch(err => console.log(err));
 });
 
 app.delete('/delete/:id', async (req, res) => {
