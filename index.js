@@ -5,13 +5,13 @@ const CustomerModel = require('./models/Customer');
 const app = express();
 
 app.use(express.json());
-app.use(cors({ origin: 'https://swiobackend-1.onrender.com' }));
+app.use(cors({ origin: 'https://swiopayment.netlify.app/' }));
 
-// Use environment variable for MongoDB URI
+
 const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/MyDb';
 
 // Connect to MongoDB
-mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(mongoURI)
   .then(() => console.log('MongoDB connected'))
   .catch(err => console.log('MongoDB connection error:', err));
 
@@ -35,6 +35,7 @@ app.post('/payment', (req, res) => {
 
 // API route to get all customers
 app.get('/getData', (req, res) => {
+  console.log('Received request to /getData');
   CustomerModel.find()
     .then(customers => {
       console.log('Customers fetched:', customers);
